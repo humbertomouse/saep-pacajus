@@ -64,6 +64,15 @@ body { padding: 24px 18px 56px; }
 
 .brand-text { min-width: 0; }
 
+.marcas-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
 .eixo-wrap {
   height: 56px;
   width: auto;
@@ -83,6 +92,18 @@ body { padding: 24px 18px 56px; }
   max-width: 240px;
   object-fit: contain;
   object-position: center;
+}
+
+.gameficando-marca {
+  display: block;
+  height: 72px;
+  width: auto;
+  max-width: 168px;
+  object-fit: contain;
+  object-position: center;
+  background: #000;
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 
 .brand-mark {
@@ -603,8 +624,9 @@ th { color: var(--muted); font-size: 12px; }
   }
 
   .brand-brasao { width: 40px; height: 46px; }
-  .eixo-marca, .eixo-wrap { height: 32px; }
-  .eixo-wrap { max-width: 160px; }
+  .eixo-marca, .eixo-wrap, .gameficando-marca { height: 32px; }
+  .eixo-wrap, .gameficando-marca { max-width: 120px; }
+  .marcas-wrap { gap: 8px; }
 
   .painel.is-active { display: block !important; }
   .card { box-shadow: none; break-inside: avoid; }
@@ -707,5 +729,6 @@ th { color: var(--muted); font-size: 12px; }
   .questoes-prova, .alunos-side { max-height: none; }
   .questao-acoes { position: static; }
   .identidade { flex-wrap: wrap; }
+  .marcas-wrap { justify-content: flex-start; }
   .eixo-wrap { max-width: 220px; flex-basis: 220px; justify-content: flex-start; }
 }
