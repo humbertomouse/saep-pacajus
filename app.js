@@ -1065,7 +1065,6 @@ function mesclarConsolidado() {
       });
     });
   };
-  incluir(consolidadoRede.escolas || []);
   incluir(consolidadoLocal());
   return [...mapa.values()].sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
 }
@@ -1201,7 +1200,7 @@ function renderGraficos() {
   const posicao = foco && linhas.length ? linhas.findIndex((e) => e.nome === foco.nome) + 1 : 0;
   document.getElementById("graf-hint").textContent = porTurma
     ? "Compara as turmas da escola selecionada. Use Geral da rede para ver o município."
-    : "Consolida os resultados da rede (1º SAEP — Fund. II) e compara a escola com as demais.";
+    : "Consolida só os lançamentos desta avaliação e compara a escola com as demais.";
   document.getElementById("graf-niveis-hint").textContent = porTurma
     ? `Distribuição ${turmaSel ? "da turma" : "das turmas"} versus a escola.`
     : "Distribuição da escola em destaque versus a média da rede.";
@@ -1291,13 +1290,7 @@ function renderGraficos() {
 }
 
 async function carregarConsolidado() {
-  try {
-    const resp = await fetch("saep-consolidado.json");
-    if (!resp.ok) return;
-    consolidadoRede = await resp.json();
-  } catch (err) {
-    console.error(err);
-  }
+  consolidadoRede = { fonte: "", escolas: [] };
 }
 
 function refresh() {

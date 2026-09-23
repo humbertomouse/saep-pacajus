@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="stylesheet" href="styles.css?v=9" />
   </head>
   <body>
     <header class="topbar">
@@ -263,7 +263,7 @@
             <button id="btn-excel" class="btn primary" type="button">Gerar Excel</button>
             <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
           </div>
-          <p class="hint" id="graf-hint">Consolida os resultados da rede (1º SAEP — Fund. II) e compara a escola selecionada com as demais. Dados locais lançados nesta página entram no consolidado.</p>
+          <p class="hint" id="graf-hint">Consolida só os lançamentos desta avaliação e compara a escola com as demais. Sem respostas lançadas, os gráficos ficam vazios.</p>
           <div id="graf-kpis" class="kpis"></div>
         </article>
         <div class="split-graficos">
@@ -330,8 +330,8 @@
     <input id="file-prova" type="file" accept=".docx,.txt,.html,.htm,.doc" hidden />
     <p class="toast" id="toast" hidden></p>
     <script src="xlsx.full.min.js"></script>
-    <script src="excel-export.js?v=8"></script>
-    <script src="docx-prova.js?v=8"></script>
-    <script src="app.js?v=8"></script>
+    <script src="excel-export.js?v=9"></script>
+    <script src="docx-prova.js?v=9"></script>
+    <script src="app.js?v=9"></script>
   </body>
 </html>
