@@ -1247,15 +1247,23 @@ function refresh() {
   renderResultados();
 }
 
+function abaRestrita(nome) {
+  return nome === "gabarito" || nome === "comparar" || nome === "graficos";
+}
+
 document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => {
-    const restrita = tab.dataset.tab === "gabarito" || tab.dataset.tab === "comparar" || tab.dataset.tab === "graficos";
-    if (restrita && !professorLiberado()) {
-      abaPendente = tab.dataset.tab;
+    const destino = tab.dataset.tab;
+    const atual = document.querySelector(".tab.is-active")?.dataset.tab;
+    if (abaRestrita(atual) && !abaRestrita(destino)) {
+      bloquearGabarito(false);
+    }
+    if (abaRestrita(destino) && !professorLiberado()) {
+      abaPendente = destino;
       mostrarModalSenha(true);
       return;
     }
-    abrirAba(tab.dataset.tab);
+    abrirAba(destino);
   });
 });
 
