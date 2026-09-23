@@ -4,6 +4,11 @@ const SESSAO_KEY = "saep-gabarito-liberado";
 const SENHA_PADRAO = "SME2026";
 const SENHA_VERSAO_KEY = "saep-gabarito-senha-versao";
 const SENHA_VERSAO = "sme2026";
+const SENHA_ADMIN_KEY = "saep-admin-senha";
+const SESSAO_ADMIN_KEY = "saep-admin-liberado";
+const SENHA_ADMIN_PADRAO = "SMEFUND2";
+const SENHA_ADMIN_VERSAO_KEY = "saep-admin-senha-versao";
+const SENHA_ADMIN_VERSAO = "smefund2";
 const ALTS = ["A", "B", "C", "D"];
 const DISC = { lp: "Língua Portuguesa", mat: "Matemática" };
 
@@ -16,12 +21,12 @@ const db = {
   provas: [],
 };
 
-function toast(texto) {
+function toast(texto, ms) {
   const el = document.getElementById("toast");
   el.hidden = false;
   el.textContent = texto;
   clearTimeout(toast._t);
-  toast._t = setTimeout(() => { el.hidden = true; }, 2200);
+  toast._t = setTimeout(() => { el.hidden = true; }, ms || 2200);
 }
 
 function salvar() {
@@ -45,6 +50,31 @@ async function garantirSenhaPadrao() {
   if (!localStorage.getItem(SENHA_KEY)) {
     localStorage.setItem(SENHA_KEY, hashAtual);
   }
+}
+
+async function garantirSenhaAdmin() {
+  const hashAtual = await hashSenha(SENHA_ADMIN_PADRAO);
+  if (localStorage.getItem(SENHA_ADMIN_VERSAO_KEY) !== SENHA_ADMIN_VERSAO) {
+    localStorage.setItem(SENHA_ADMIN_KEY, hashAtual);
+    localStorage.setItem(SENHA_ADMIN_VERSAO_KEY, SENHA_ADMIN_VERSAO);
+    sessionStorage.removeItem(SESSAO_ADMIN_KEY);
+    return;
+  }
+  if (!localStorage.getItem(SENHA_ADMIN_KEY)) {
+    localStorage.setItem(SENHA_ADMIN_KEY, hashAtual);
+  }
+}
+
+function adminLiberado() {
+  return sessionStorage.getItem(SESSAO_ADMIN_KEY) === "1";
+}
+
+function mostrarModalAdmin(mostrar) {
+  const modal = document.getElementById("modal-admin");
+  modal.hidden = !mostrar;
+  document.getElementById("senha-admin-erro").hidden = true;
+  document.getElementById("senha-admin").value = "";
+  if (mostrar) document.getElementById("senha-admin").focus();
 }
 
 let abaPendente = "gabarito";
@@ -571,22 +601,30 @@ function lancamentoDoAluno(turmaId, disciplina, alunoId) {
   return (p && p.respostas[alunoId]) || null;
 }
 
+function alunoFinalizadoNaProva(turmaId, disciplina, alunoId) {
+  const lanc = lancamentoDoAluno(turmaId, disciplina, alunoId);
+  return !!(lanc && lanc.finalizado);
+}
+
 function renderLancarLista() {
   const turmaId = document.getElementById("lan-turma").value;
   const disciplina = document.getElementById("lan-disciplina").value;
-  const alunos = db.alunos.filter((a) => a.turmaId === turmaId);
+  const daTurma = db.alunos.filter((a) => a.turmaId === turmaId);
+  const alunos = daTurma.filter((a) => !alunoFinalizadoNaProva(turmaId, disciplina, a.id));
+  const vazio = !daTurma.length
+    ? "Nenhum aluno nesta turma."
+    : "Todos os alunos desta turma já finalizaram o lançamento.";
   document.getElementById("lista-alunos-lancar").innerHTML = alunos.map((a) => {
-    const lanc = lancamentoDoAluno(turmaId, disciplina, a.id);
     const extra = a.nee ? " · NEE" : "";
-    const lock = lanc && lanc.finalizado ? " · finalizado" : "";
-    return `<li class="${a.id === alunoAtual ? "is-on" : ""}" data-aluno="${a.id}">${a.nome}${extra}${lock}</li>`;
-  }).join("") || "<li>Nenhum aluno nesta turma.</li>";
+    return `<li class="${a.id === alunoAtual ? "is-on" : ""}" data-aluno="${a.id}">${a.nome}${extra}</li>`;
+  }).join("") || `<li>${vazio}</li>`;
 }
 
 function renderLancar() {
-  renderLancarLista();
   const turmaId = document.getElementById("lan-turma").value;
   const disciplina = document.getElementById("lan-disciplina").value;
+  if (alunoAtual && alunoFinalizadoNaProva(turmaId, disciplina, alunoAtual)) alunoAtual = "";
+  renderLancarLista();
   const box = document.getElementById("lista-respostas");
   const resumo = document.getElementById("lan-resumo");
   const faltaWrap = document.getElementById("lan-falta-wrap");
@@ -698,9 +736,11 @@ function renderComparar() {
   const turmaId = document.getElementById("cmp-turma").value;
   const disciplina = document.getElementById("cmp-disciplina").value;
   const alunos = db.alunos.filter((a) => a.turmaId === turmaId);
-  lista.innerHTML = alunos.map((a) =>
-    `<li class="${a.id === alunoComparar ? "is-on" : ""}" data-aluno-cmp="${a.id}">${a.nome}${a.nee ? " · NEE" : ""}</li>`
-  ).join("") || "<li>Nenhum aluno nesta turma.</li>";
+  lista.innerHTML = alunos.map((a) => {
+    const extra = a.nee ? " · NEE" : "";
+    const lock = alunoFinalizadoNaProva(turmaId, disciplina, a.id) ? " · finalizado" : "";
+    return `<li class="${a.id === alunoComparar ? "is-on" : ""}" data-aluno-cmp="${a.id}">${a.nome}${extra}${lock}</li>`;
+  }).join("") || "<li>Nenhum aluno nesta turma.</li>";
 
   const aluno = db.alunos.find((a) => a.id === alunoComparar);
   if (!turmaId || !aluno) {
@@ -1339,6 +1379,13 @@ document.body.addEventListener("click", (e) => {
     refresh();
   }
   if (alunoSel) {
+    const turmaId = document.getElementById("lan-turma").value;
+    const disciplina = document.getElementById("lan-disciplina").value;
+    if (alunoFinalizadoNaProva(turmaId, disciplina, alunoSel)) {
+      alunoAtual = "";
+      renderLancar();
+      return;
+    }
     alunoAtual = alunoSel;
     renderLancar();
   }
@@ -1432,9 +1479,43 @@ document.getElementById("btn-finalizar").addEventListener("click", () => {
   if (!lanc || lanc.finalizado) return;
   if (!window.confirm("Depois de finalizar, as respostas não poderão ser alteradas. Deseja continuar?")) return;
   lanc.finalizado = true;
+  alunoAtual = "";
   salvar();
   renderLancar();
-  toast("Lançamento finalizado.");
+  toast("Lançamento finalizado. O aluno saiu da lista de lançamento.");
+});
+
+function reiniciarAvaliacoes() {
+  (db.provas || []).forEach((p) => {
+    p.respostas = {};
+  });
+  alunoAtual = "";
+  alunoComparar = "";
+  salvar();
+  refresh();
+}
+
+document.getElementById("btn-reiniciar-avaliacoes").addEventListener("click", () => {
+  mostrarModalAdmin(true);
+});
+
+document.getElementById("btn-cancelar-admin").addEventListener("click", () => mostrarModalAdmin(false));
+
+document.getElementById("form-admin").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  await garantirSenhaAdmin();
+  const informada = await hashSenha(document.getElementById("senha-admin").value);
+  if (informada !== localStorage.getItem(SENHA_ADMIN_KEY)) {
+    document.getElementById("senha-admin-erro").hidden = false;
+    return;
+  }
+  sessionStorage.setItem(SESSAO_ADMIN_KEY, "1");
+  mostrarModalAdmin(false);
+  if (!window.confirm("Isto limpa só as respostas lançadas (incluindo falta e finalizado) de todas as turmas e disciplinas. Gabarito, enunciados, escolas, turmas e alunos permanecem. Deseja continuar?")) {
+    return;
+  }
+  reiniciarAvaliacoes();
+  toast("Lançamentos das provas limpos. Os nomes voltaram para Lançar respostas.");
 });
 document.getElementById("lan-falta").addEventListener("change", (e) => {
   const turmaId = document.getElementById("lan-turma").value;
@@ -1659,7 +1740,7 @@ async function importarCadastrosSaep(opcoes = {}) {
   const totalT = (seed.escolas || []).reduce((n, e) => n + (e.turmas || []).length, 0);
   const totalA = (seed.escolas || []).reduce((n, e) => n + (e.turmas || []).reduce((m, t) => m + (t.alunos || []).length, 0), 0);
   if (!automatico || resumo.escolas || resumo.turmas || resumo.alunos) {
-    toast(`Cadastros SAEP: ${totalE} escolas, ${totalT} turmas, ${totalA} alunos. Novos: ${resumo.escolas} escolas, ${resumo.turmas} turmas, ${resumo.alunos} alunos.`);
+    toast(`Cadastros SAEP: ${totalE} escolas, ${totalT} turmas, ${totalA} alunos. Novos: ${resumo.escolas} escolas, ${resumo.turmas} turmas, ${resumo.alunos} alunos.`, 7000);
   }
   return { totalE, totalT, totalA, ...resumo };
 }
@@ -1715,9 +1796,10 @@ async function iniciar() {
       db.provas = [];
     }
   }
-  if (!db.escolas.length) {
+  const cadastroIncompleto = (db.escolas || []).length <= 1 || (db.alunos || []).length < 100;
+  if (cadastroIncompleto) {
     try {
-      await importarSemente();
+      if (!(db.escolas || []).length) await importarSemente();
       await importarCadastrosSaep({ automatico: true });
     } catch (err) {
       console.error(err);
@@ -1725,6 +1807,7 @@ async function iniciar() {
   }
   try {
     await garantirSenhaPadrao();
+    await garantirSenhaAdmin();
   } catch (err) {
     console.error(err);
   }

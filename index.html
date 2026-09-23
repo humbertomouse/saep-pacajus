@@ -44,8 +44,10 @@
           <div class="toolbar">
             <button id="btn-importar-cadastros" class="btn primary" type="button">Importar cadastros SAEP</button>
             <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
+            <button id="btn-reiniciar-avaliacoes" class="btn ghost" type="button">Limpar lançamentos das provas</button>
           </div>
           <p class="hint">Os formulários manuais de escola, turma e aluno continuam disponíveis. A importação mescla a rede FUND II sem duplicar cadastros nem apagar provas ou respostas já lançadas.</p>
+          <p class="hint">Limpar lançamentos (administração) apaga só as respostas, faltas e finalizações dos alunos. Gabarito, enunciados, escolas, turmas e alunos permanecem.</p>
         </article>
         <div class="split-3">
           <article class="card">
@@ -302,6 +304,18 @@
         <div class="toolbar">
           <button class="btn primary" type="submit">Desbloquear</button>
           <button class="btn ghost" id="btn-cancelar-senha" type="button">Cancelar</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal" id="modal-admin" hidden>
+      <form id="form-admin" class="card modal-card">
+        <h2>Administração</h2>
+        <p class="hint">Digite a senha de administração para limpar os lançamentos das provas. O gabarito oficial, os enunciados, as escolas, as turmas e os alunos não serão apagados.</p>
+        <label>Senha <input id="senha-admin" type="password" autocomplete="current-password" required /></label>
+        <p class="erro" id="senha-admin-erro" hidden>Senha incorreta.</p>
+        <div class="toolbar">
+          <button class="btn primary" type="submit">Continuar</button>
+          <button class="btn ghost" id="btn-cancelar-admin" type="button">Cancelar</button>
         </div>
       </form>
     </div>
