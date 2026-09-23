@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SME Pacajus — SAEP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="identidade">
+        <div class="brand">
+          <img class="brand-brasao" src="assets/brasao-pacajus.png?v=2" width="68" height="78" alt="Brasão do Município de Pacajus" />
+          <div class="brand-text">
+            <p class="sme-nome">SECRETARIA MUNICIPAL DE EDUCAÇÃO DE PACAJUS</p>
+            <h1>SAEP</h1>
+            <p class="brand-sub">Cadastro, gabarito e nível de aprendizagem</p>
+            <p class="brand-credito">DESENVOLVIDO POR HUMBERTO RÔMULO</p>
+          </div>
+        </div>
+        <div class="eixo-wrap">
+          <img class="eixo-marca" src="assets/eixo-marca.png?v=3" alt="Eixo de Avaliação — Educa+ Pacajus" />
+        </div>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button class="tab is-active" data-tab="cadastros" type="button">Cadastros</button>
+        <button class="tab" data-tab="gabarito" type="button">Gabarito</button>
+        <button class="tab" data-tab="lancar" type="button">Lançar respostas</button>
+        <button class="tab" data-tab="comparar" type="button">Comparar gabarito</button>
+        <button class="tab" data-tab="resultados" type="button">Resultados</button>
+        <button class="tab" data-tab="graficos" type="button">Gráficos</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="painel-cadastros" class="painel is-active">
+        <article class="card cadastros-acoes">
+          <div class="toolbar">
+            <button id="btn-importar-cadastros" class="btn primary" type="button">Importar cadastros SAEP</button>
+            <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
+          </div>
+          <p class="hint">Os formulários manuais de escola, turma e aluno continuam disponíveis. A importação mescla a rede FUND II sem duplicar cadastros nem apagar provas ou respostas já lançadas.</p>
+        </article>
+        <div class="split-3">
+          <article class="card">
+            <h2>Escola</h2>
+            <form id="form-escola" class="stack">
+              <label>Nome da escola <input id="escola-nome" required placeholder="Ex.: E.E.F. Araci Gonzaga" /></label>
+              <label>Etapa
+                <select id="escola-etapa">
+                  <option value="FUND I">Fund. I</option>
+                  <option value="FUND II" selected>Fund. II</option>
+                  <option value="MÉDIO">Ensino Médio</option>
+                </select>
+              </label>
+              <button class="btn primary" type="submit">Salvar escola</button>
+            </form>
+            <ul id="lista-escolas" class="lista"></ul>
+          </article>
+
+          <article class="card">
+            <h2>Turma</h2>
+            <form id="form-turma" class="stack">
+              <label>Escola <select id="turma-escola" required></select></label>
+              <label>Ano / série <input id="turma-ano" required placeholder="Ex.: 9º ANO" /></label>
+              <label>Turma <input id="turma-nome" required placeholder="Ex.: 9º A" /></label>
+              <button class="btn primary" type="submit">Salvar turma</button>
+            </form>
+            <ul id="lista-turmas" class="lista"></ul>
+          </article>
+
+          <article class="card">
+            <h2>Aluno</h2>
+            <form id="form-aluno" class="stack">
+              <label>Escola <select id="aluno-escola"></select></label>
+              <label>Turma <select id="aluno-turma" required></select></label>
+              <label>Nome completo <input id="aluno-nome" required placeholder="Nome do aluno" /></label>
+              <label class="check"><input id="aluno-nee" type="checkbox" /> Aluno com NEE</label>
+              <button class="btn primary" type="submit">Salvar aluno</button>
+            </form>
+            <ul id="lista-alunos" class="lista"></ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="painel-gabarito" class="painel">
+        <article class="card">
+          <div class="toolbar">
+            <label>Escola <select id="gab-escola"></select></label>
+            <label>Turma <select id="gab-turma"></select></label>
+            <label>Disciplina
+              <select id="gab-disciplina">
+                <option value="lp">Língua Portuguesa</option>
+                <option value="mat">Matemática</option>
+              </select>
+            </label>
+            <label>Questões <input id="gab-qtd" type="number" min="1" max="52" value="26" /></label>
+            <button id="btn-gerar-gab" class="btn primary" type="button">Gerar questões</button>
+            <button id="btn-importar-prova" class="btn ghost" type="button">Importar documento da prova</button>
+            <button id="btn-exportar-prova" class="btn ghost" type="button">Exportar documento</button>
+            <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
+          </div>
+          <p class="hint">Área restrita do professor. Marque a resposta correta em A, B, C ou D e informe o descritor SPEACE/SAEB. Importar um .docx substitui as questões desta disciplina.</p>
+          <div id="lista-gabarito" class="questoes"></div>
+          <div class="toolbar senha-toolbar">
+            <label>Nova senha do gabarito <input id="nova-senha" type="password" autocomplete="new-password" /></label>
+            <label>Confirmar senha <input id="confirmar-senha" type="password" autocomplete="new-password" /></label>
+            <button id="btn-salvar-senha" class="btn ghost" type="button">Alterar senha</button>
+            <button id="btn-bloquear" class="btn ghost" type="button">Bloquear gabarito</button>
+          </div>
+        </article>
+      </section>
+
+      <section id="painel-lancar" class="painel">
+        <div class="split-lancar">
+          <article class="card">
+            <div class="toolbar">
+              <label>Escola <select id="lan-escola"></select></label>
+              <label>Turma <select id="lan-turma"></select></label>
+              <label>Disciplina
+                <select id="lan-disciplina">
+                  <option value="lp">Língua Portuguesa</option>
+                  <option value="mat">Matemática</option>
+                </select>
+              </label>
+              <button id="btn-importar-prova-lan" class="btn ghost" type="button">Importar documento</button>
+              <button id="btn-exportar-prova-lan" class="btn ghost" type="button">Exportar documento</button>
+              <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
+            </div>
+            <ul id="lista-alunos-lancar" class="lista alunos-side"></ul>
+          </article>
+          <article class="card">
+            <div class="status-row">
+              <div>
+                <h2 id="lan-titulo">Selecione um aluno</h2>
+                <p class="hint" id="lan-sub">Leia o enunciado e marque A, B, C ou D. O gabarito não aparece nesta tela.</p>
+              </div>
+              <label class="check" id="lan-falta-wrap" hidden>
+                <input id="lan-falta" type="checkbox" /> Falta
+              </label>
+            </div>
+            <div id="lista-respostas" class="questoes"></div>
+            <aside class="resultado" id="lan-resumo" hidden></aside>
+            <div class="toolbar lan-acoes" id="lan-finalizar-wrap" hidden>
+              <button id="btn-finalizar" class="btn primary" type="button">Finalizar lançamento</button>
+              <p class="hint estado" id="lan-finalizado-msg" hidden>Lançamento finalizado. As respostas não podem mais ser alteradas.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="painel-comparar" class="painel">
+        <div class="split-lancar">
+          <article class="card">
+            <div class="toolbar">
+              <label>Escola <select id="cmp-escola"></select></label>
+              <label>Turma <select id="cmp-turma"></select></label>
+              <label>Disciplina
+                <select id="cmp-disciplina">
+                  <option value="lp">Língua Portuguesa</option>
+                  <option value="mat">Matemática</option>
+                </select>
+              </label>
+              <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
+            </div>
+            <ul id="lista-alunos-comparar" class="lista alunos-side"></ul>
+          </article>
+          <article class="card">
+            <div class="status-row">
+              <div>
+                <h2 id="cmp-titulo">Selecione um aluno</h2>
+                <p class="hint" id="cmp-sub">Área do professor: compara cada resposta com o gabarito oficial.</p>
+              </div>
+            </div>
+            <div id="lista-comparar" class="questoes"></div>
+            <aside class="resultado" id="cmp-resumo" hidden></aside>
+          </article>
+        </div>
+      </section>
+
+      <section id="painel-resultados" class="painel">
+        <article class="card">
+          <div class="toolbar">
+            <label>Escola <select id="res-escola"></select></label>
+            <label>Turma <select id="res-turma"></select></label>
+            <label>Disciplina
+              <select id="res-disciplina">
+                <option value="lp">Língua Portuguesa</option>
+                <option value="mat">Matemática</option>
+              </select>
+            </label>
+            <button id="btn-imprimir" class="btn ghost btn-imprimir" type="button">Imprimir</button>
+            <button id="btn-exportar" class="btn ghost" type="button">Exportar JSON</button>
+          </div>
+          <div class="niveis-legenda">
+            <span class="pill ok">Adequado ≤ 1000</span>
+            <span class="pill mid">Intermediário ≤ 850</span>
+            <span class="pill crit">Crítico ≤ 580</span>
+            <span class="pill bad">Muito crítico ≤ 400</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nº</th>
+                  <th>Aluno</th>
+                  <th>NEE</th>
+                  <th>Falta</th>
+                  <th>Acertos</th>
+                  <th>%</th>
+                  <th>Proficiência</th>
+                  <th>Nível de aprendizagem</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-resultados"></tbody>
+            </table>
+          </div>
+          <div id="resumo-turma" class="resumo-turma"></div>
+        </article>
+      </section>
+
+      <section id="painel-graficos" class="painel">
+        <article class="card">
+          <div class="toolbar">
+            <label>Visão
+              <select id="graf-visao">
+                <option value="geral">Geral da rede</option>
+                <option value="turmas">Por turmas</option>
+              </select>
+            </label>
+            <label>Ano / série
+              <select id="graf-ano">
+                <option value="6º">6º ano</option>
+                <option value="7º">7º ano</option>
+                <option value="8º">8º ano</option>
+                <option value="9º" selected>9º ano</option>
+              </select>
+            </label>
+            <label>Disciplina
+              <select id="graf-disciplina">
+                <option value="lp">Língua Portuguesa</option>
+                <option value="mat">Matemática</option>
+              </select>
+            </label>
+            <label>Escola <select id="graf-escola"></select></label>
+            <label id="graf-turma-wrap" hidden>Turma <select id="graf-turma"></select></label>
+            <button id="btn-excel" class="btn primary" type="button">Gerar Excel</button>
+            <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
+          </div>
+          <p class="hint" id="graf-hint">Consolida os resultados da rede (1º SAEP — Fund. II) e compara a escola selecionada com as demais. Dados locais lançados nesta página entram no consolidado.</p>
+          <div id="graf-kpis" class="kpis"></div>
+        </article>
+        <div class="split-graficos">
+          <article class="card">
+            <h2>Nível de aprendizagem</h2>
+            <p class="hint" id="graf-niveis-hint">Distribuição da escola em destaque versus a média da rede.</p>
+            <div id="graf-niveis" class="graf-niveis"></div>
+          </article>
+          <article class="card">
+            <h2 id="graf-ranking-titulo">Comparação entre escolas</h2>
+            <p class="hint" id="graf-ranking-hint">Média de proficiência no ano e na disciplina selecionados.</p>
+            <div id="graf-ranking" class="graf-ranking"></div>
+          </article>
+        </div>
+        <article class="card">
+          <h2 id="graf-tabela-titulo">Tabela consolidada da rede</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Posição</th>
+                  <th id="graf-col-nome">Escola</th>
+                  <th>Alunos</th>
+                  <th>Avaliados</th>
+                  <th>Faltas</th>
+                  <th>Média</th>
+                  <th>Adequado</th>
+                  <th>Intermediário</th>
+                  <th>Crítico</th>
+                  <th>Muito crítico</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-consolidado"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <div class="modal" id="modal-senha" hidden>
+      <form id="form-senha" class="card modal-card">
+        <h2>Área do professor</h2>
+        <p class="hint">Digite a senha da SME para abrir o gabarito, a comparação ou os gráficos consolidados.</p>
+        <label>Senha <input id="senha-gabarito" type="password" autocomplete="current-password" required /></label>
+        <p class="erro" id="senha-erro" hidden>Senha incorreta.</p>
+        <div class="toolbar">
+          <button class="btn primary" type="submit">Desbloquear</button>
+          <button class="btn ghost" id="btn-cancelar-senha" type="button">Cancelar</button>
+        </div>
+      </form>
+    </div>
+    <input id="file-prova" type="file" accept=".docx,.txt,.html,.htm,.doc" hidden />
+    <p class="toast" id="toast" hidden></p>
+    <script src="xlsx.full.min.js"></script>
+    <script src="excel-export.js"></script>
+    <script src="docx-prova.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

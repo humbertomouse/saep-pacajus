@@ -1,0 +1,429 @@
+{
+  "disciplina": "lp",
+  "ano": "9º",
+  "titulo": "1ª Avaliação Diagnóstica — 2026 — 9º ano — Língua Portuguesa",
+  "subtitulo": "Ensino Fundamental — leia os textos e marque A, B, C ou D.",
+  "marcas": [],
+  "apoioBlocos": [
+    {
+      "de": 1,
+      "ate": 4,
+      "partes": [
+        {
+          "texto": "Leia os textos abaixo e responda as questões 01, 02, 03 e 04.",
+          "imagens": []
+        },
+        {
+          "texto": "Texto 1",
+          "imagens": []
+        },
+        {
+          "texto": "Como o fuso horário mudou o mundo",
+          "imagens": []
+        },
+        {
+          "texto": "Conforme a Terra dá voltas em torno do Sol e gira sobre o próprio eixo, partes dela são iluminadas — e outras ficam no escuro. Por isso é dia em alguns pontos enquanto é noite em outros, e há diferenças de horário entre os lugares.",
+          "imagens": []
+        },
+        {
+          "texto": "Mas, até o século 19, isso era uma bagunça: cada cidade definia sua própria hora, sem coordenação central. Nos EUA, as ferrovias eram obrigadas a manter tabelas com mais de 300 horários diferentes.",
+          "imagens": []
+        },
+        {
+          "texto": "Em 1884, a Conferência Internacional do Meridiano botou ordem no planeta estabelecendo as regras que usamos hoje: 24 fusos horários, com o horário central baseado em Greenwich (um distrito de Londres).",
+          "imagens": []
+        },
+        {
+          "texto": "Houve resistência, pois cada país queria que o centro fosse sua própria capital, mas todos acabaram aceitando (o Brasil, em 1913).",
+          "imagens": []
+        },
+        {
+          "texto": "Os fusos horários foram essenciais para a globalização. Mas alguns países os adotam de um jeito peculiar. Na China, o país todo segue um fuso, de Pequim, o que gera distorções: nas cidades mais a Oeste, às vezes a manhã só começa às 10h, e há dias em que já é meia-noite quando o sol se põe.",
+          "imagens": []
+        },
+        {
+          "texto": "MARTON, Fábio. Como o fuso horário mudou o mundo. Superinteressante, 21 maio 2018. Disponível em: https://meulink.fit/ sMUEvBjPidbuhuj. Acesso em: 30 out. 2025.",
+          "imagens": []
+        },
+        {
+          "texto": "Texto 2",
+          "imagens": []
+        },
+        {
+          "texto": "",
+          "imagens": [
+            "assets/prova/texto-2-peanuts.png"
+          ]
+        },
+        {
+          "texto": "SCHULZ, Charles M. Disponível em: https://meulink.fit/yLqErfsyWUpLPlq. Acesso em: 30 out. 2025.",
+          "imagens": []
+        }
+      ]
+    },
+    {
+      "de": 5,
+      "ate": 5,
+      "partes": [
+        {
+          "texto": "Leia o texto abaixo.",
+          "imagens": []
+        },
+        {
+          "texto": "Ai que saudade d’ocê",
+          "imagens": []
+        },
+        {
+          "texto": "Não se admire se um dia um beija-flor invadir",
+          "imagens": []
+        },
+        {
+          "texto": "A porta da tua casa, te der um beijo e partir",
+          "imagens": []
+        },
+        {
+          "texto": "Fui eu que mandei o beijo [...]",
+          "imagens": []
+        },
+        {
+          "texto": "Faz tempo que eu não te vejo",
+          "imagens": []
+        },
+        {
+          "texto": "Ai que saudade d’ocê",
+          "imagens": []
+        },
+        {
+          "texto": "Se um dia você se lembrar, escreva uma carta pra mim",
+          "imagens": []
+        },
+        {
+          "texto": "Bote logo no correio, com frases dizendo assim",
+          "imagens": []
+        },
+        {
+          "texto": "Faz tempo que eu não te vejo [...]",
+          "imagens": []
+        },
+        {
+          "texto": "Te mando um monte de beijo",
+          "imagens": []
+        },
+        {
+          "texto": "Ai que saudade sem fim",
+          "imagens": []
+        },
+        {
+          "texto": "E se quiser recordar aquele nosso namoro",
+          "imagens": []
+        },
+        {
+          "texto": "Quando eu ia viajar, você caía no choro",
+          "imagens": []
+        },
+        {
+          "texto": "Eu chorando pela estrada, mas o que que eu posso fazer?",
+          "imagens": []
+        },
+        {
+          "texto": "Trabalhar é minha sina",
+          "imagens": []
+        },
+        {
+          "texto": "Eu gosto mesmo é d’ocê",
+          "imagens": []
+        },
+        {
+          "texto": "FARIAS, Vital. Ai que saudade d’ocê. Intérprete: Zeca Baleiro, 2013. Disponível em: https://meulink.fit/WjyNhwCrPOaroxp. Acesso em: 7 out. 2025. Fragmento.",
+          "imagens": []
+        }
+      ]
+    },
+    {
+      "de": 6,
+      "ate": 6,
+      "partes": [
+        {
+          "texto": "Leia o texto abaixo.",
+          "imagens": []
+        },
+        {
+          "texto": "De Volta Ao Começo",
+          "imagens": []
+        },
+        {
+          "texto": "Fiquei fora de casa por duas semanas. Viajamos para comemorar os festejos de final de ano e, quando voltamos, recebi um convite para passar as férias no interior. Naquela cidadezinha, eu me sentia um rei: estava totalmente desprendido de qualquer compromisso.",
+          "imagens": []
+        },
+        {
+          "texto": "Quando voltei, definitivamente, para a casa, faltava uma semana para as aulas começarem. Naquele momento, era necessário retornar à realidade e, acima de tudo, encará-la. Eu, pouco antes de entrar de férias, já sabia que muita coisa iria mudar: no próximo ano, passaria a estudar pela manhã. No entanto, a ficha só caiu, naquele primeiro dia de aula.",
+          "imagens": []
+        },
+        {
+          "texto": "Algumas pessoas que haviam estudado comigo, no ano anterior, também migraram para o período matutino. Aparentemente, aquilo era muito bom, mas não significava muita coisa para mim, porque eu não tinha por perto os meus amigos de outrora. Minto, havia sim um que integrava o meu ciclo de amizades, mas esse não estava na mesma sala que eu. Talvez, seja por isso que, no decorrer do semestre, fomos nos distanciando.",
+          "imagens": []
+        },
+        {
+          "texto": "Assim que comecei a estudar naquele colégio, fiz amizade com um garoto e os nossos laços foram se estreitando, durante todo aquele ano letivo. Conversávamos sempre sobre tudo e no recreio, não nos desgrudávamos. Esse meu amigo, no ano seguinte, mudaria de colégio. Pelo jeito, o nosso distanciamento seria inevitável.",
+          "imagens": []
+        },
+        {
+          "texto": "Nunca me esqueci daquela frase dele, no último dia de aula, quando nos despedimos:",
+          "imagens": []
+        },
+        {
+          "texto": "– Um dia, nós vamos nos encontrar.",
+          "imagens": []
+        },
+        {
+          "texto": "DE VOLTA Ao Começo. Autores.com, 2016. Disponível em: https://meulink.fit/oWHrUnbcgofjEod. Acesso em: 26 set. 2024. Adaptado para fins didáticos. Fragmento.",
+          "imagens": []
+        }
+      ]
+    },
+    {
+      "de": 7,
+      "ate": 8,
+      "partes": [
+        {
+          "texto": "Leia o texto abaixo e responda as questões 07 e 08.",
+          "imagens": []
+        },
+        {
+          "texto": "Mãe leva bebê para trabalhar com ela na oficina e mecânicos cuidam da criança [...]",
+          "imagens": []
+        },
+        {
+          "texto": "Samira Rodrigues é de uma família em que todos trabalham numa oficina mecânica, inclusive ela. Portanto, mais do que natural, a mãe levar seu bebê para fazer parte do time de mecânicos da oficina. Detalhe: o neném ganhou o título de “minichefinho” e usa uniforme.",
+          "imagens": []
+        },
+        {
+          "texto": "A mãe orgulhosa da integração do pequeno Israel com os mecânicos compartilha o dia a dia da criança nas redes sociais. “Funcionário” da oficina, ele fica mais do que à vontade com os amigos mecânicos, em Goiás.",
+          "imagens": []
+        },
+        {
+          "texto": "E adora os carros, mas prefere os caminhões. A mamãe Samira estimula isso, com apoio dos avós e tios que também trabalham na oficina. Isso é que é negócio em família! [...]",
+          "imagens": []
+        },
+        {
+          "texto": "Só o vídeo em que os mecânicos se assumem como babá do Israel viralizou com mais de 3,2 milhões de visualizações.",
+          "imagens": []
+        },
+        {
+          "texto": "Nele, os profissionais andam para cima e para baixo com o bebê, brincam, conversam e parecem se divertir com o pequeno.",
+          "imagens": []
+        },
+        {
+          "texto": "A criança é figurinha conhecida na oficina: bate ponto todos os dias por lá. O minichefinho fica todo maroto e à vontade com os amigos. [...]",
+          "imagens": []
+        },
+        {
+          "texto": "O vídeo da mãe que leva o bebê à oficina para brincar com os mecânicos ganhou muitos comentários de seguidores e internautas.",
+          "imagens": []
+        },
+        {
+          "texto": "“Esse chefinho está bem acompanhado por esses meninos, que cuidam bem dele”, afirmou. “Ele está sempre sorrindo [...].”",
+          "imagens": []
+        },
+        {
+          "texto": "Uma outra comentou que: “O carinho deles é surreal, que bebê amado e que família feliz”.",
+          "imagens": []
+        },
+        {
+          "texto": "Para uma internauta, o ambiente da oficina com os mecânicos à vontade demonstra o astral do lugar. “Melhor trabalho com a melhor companhia, assim todos trabalham livres de estresse.”",
+          "imagens": []
+        },
+        {
+          "texto": "DIAS, Renata. Mãe leva bebê para trabalhar com ela na oficina e mecânicos cuidam da criança [...]. Só Notícia Boa, 1 nov. 2024. Disponível em: https://meulink.fit/klOeNAdrGxJGGvk. Acesso em: 3 nov. 2024. Adaptado para fins didáticos. Fragmento.",
+          "imagens": []
+        }
+      ]
+    },
+    {
+      "de": 9,
+      "ate": 10,
+      "partes": [
+        {
+          "texto": "Leia o texto abaixo e responda as questões 09 e 10.",
+          "imagens": []
+        },
+        {
+          "texto": "",
+          "imagens": [
+            "assets/prova/texto-boco-filme.png"
+          ]
+        },
+        {
+          "texto": "C0901 MARÇAL, Rafael. Bocó vendo filme. Vacilândia, 2020. Disponível em: https://vacilandia.com/boco-vendo-filme/. Acesso em: 27 ago. 2025.",
+          "imagens": []
+        }
+      ]
+    },
+    {
+      "de": 11,
+      "ate": 12,
+      "partes": [
+        {
+          "texto": "Leia o texto abaixo e responda as questões 11 e 12.",
+          "imagens": []
+        },
+        {
+          "texto": "Animais são capazes de sonhar como seres humanos?",
+          "imagens": []
+        },
+        {
+          "texto": "Jovens aranhas saltadoras ficam penduradas por um fio durante a noite, numa caixa em um laboratório. De vez em quando, suas pernas se curvam e suas fiandeiras [...] se contraem.",
+          "imagens": []
+        },
+        {
+          "texto": "As retinas dos seus olhos, visíveis através dos seus exoesqueletos translúcidos, movem-se para frente e para trás.",
+          "imagens": []
+        },
+        {
+          "texto": "“O que estas aranhas fazem parece assemelhar-se – muito de perto – ao sono REM”, diz Daniela Rößler [...], ecologista comportamental da Universidade de Konstanz, na Alemanha.",
+          "imagens": []
+        },
+        {
+          "texto": "Durante o sono REM (sigla em inglês para movimento rápido dos olhos), os olhos de um animal adormecido movem-se de forma imprevisível, entre outras características.",
+          "imagens": []
+        },
+        {
+          "texto": "Nas pessoas, o REM ocorre quando acontece a maioria dos sonhos, principalmente os mais vívidos. Isto leva a uma questão intrigante: se as aranhas têm sono REM, será que os sonhos também se desenrolam nos seus cérebros do tamanho de uma semente de papoula?",
+          "imagens": []
+        },
+        {
+          "texto": "Rößler e seus colegas estudaram sobre as aranhas que movimentam os olhos em 2022. Com câmeras em 34 aranhas, eles descobriram que as criaturas tinham breves comportamentos semelhantes ao REM a cada 17 minutos.",
+          "imagens": []
+        },
+        {
+          "texto": "O revirar de olhos era algo específico desses episódios: não acontecia em momentos da noite em que as aranhas saltadoras se mexiam, se espreguiçavam, reajustavam seus fios de seda ou se limpavam com o roçar de uma perna.",
+          "imagens": []
+        },
+        {
+          "texto": "Embora as aranhas fiquem imóveis antes desses episódios do tipo REM, a equipe ainda não provou que estão dormindo. Mas se esse for o caso [...] sonhar é uma possibilidade real, diz Rößler. [...]",
+          "imagens": []
+        },
+        {
+          "texto": "ANIMAIS são capazes de sonhar como seres humanos? G1, 8 set. 2023. Disponível em: . Acesso em: 15 set. 2023. Fragmento.",
+          "imagens": []
+        }
+      ]
+    }
+  ],
+  "enunciados": [
+    "A informação comum a esses textos é",
+    "De acordo com o Texto 1, qual lugar do mundo segue apenas um fuso horário?",
+    "No primeiro parágrafo do Texto 1, no trecho “... partes dela são iluminadas...”, a palavra destacada substitui",
+    "No primeiro quadrinho do Texto 2, as reticências foram utilizadas para",
+    "Infere-se desse texto que o eu lírico",
+    "O fato que dá origem ao texto é o narrador",
+    "Nesse texto, há uma opinião no trecho:",
+    "A informação principal desse texto está no trecho:",
+    "Nesse texto, o humor está no fato de",
+    "No terceiro quadrinho desse texto, no trecho “Vou me arrepender por perguntar, mas...”, a palavra em destaque estabelece relação de",
+    "O assunto desse texto é",
+    "O objetivo desse texto é",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "alternativas": [
+    [
+      "a divisão do mundo em 24 fusos horários.",
+      "a resistência para mudar o horário central.",
+      "o desacordo entre os horários no mundo.",
+      "o entusiasmo com os dias melhores."
+    ],
+    [
+      "Brasil.",
+      "China.",
+      "EUA.",
+      "Londres."
+    ],
+    [
+      "capital.",
+      "China.",
+      "cidade.",
+      "Terra."
+    ],
+    [
+      "destacar a continuação de uma enumeração.",
+      "indicar a reflexão feita por um personagem.",
+      "marcar a dúvida com relação a um assunto.",
+      "mostrar a interrupção da fala de um personagem."
+    ],
+    [
+      "convida a amada para uma viagem.",
+      "escreve cartas para a amada.",
+      "faz uma declaração de amor.",
+      "fica admirado com o voo do beija-flor."
+    ],
+    [
+      "conversar com seu novo amigo.",
+      "perder o contado com os amigos.",
+      "retornar às aulas escolares.",
+      "sair de férias de final de ano."
+    ],
+    [
+      "“... uma família em que todos trabalham numa oficina mecânica,...”. (1º parágrafo)",
+      "“... o vídeo em que os mecânicos se assumem como babá do Israel viralizou...”. (4º parágrafo)",
+      "“A criança é figurinha conhecida na oficina: bate ponto todos os dias por lá.”. (6º parágrafo)",
+      "“‘Melhor trabalho com a melhor companhia, assim todos trabalham livres de estresse.’”. (10º parágrafo)"
+    ],
+    [
+      "“... a mãe levar seu bebê para fazer parte do time de mecânicos da oficina.”. (1º parágrafo)",
+      "“E adora os carros, mas prefere os caminhões.”. (3º parágrafo)",
+      "“... os profissionais andam para cima e para baixo com o bebê,...”. (5º parágrafo)",
+      "“O minichefinho fica todo maroto e à vontade com os amigos.”. (6º parágrafo)"
+    ],
+    [
+      "a menina saber que vai se arrepender ao fazer uma pergunta.",
+      "a menina questionar ao pai sobre a lupa que está na mão dele.",
+      "o homem acreditar que a formiga apareceria pequena no filme.",
+      "o homem gostar de assistir filmes sobre uma história de ficção."
+    ],
+    [
+      "conclusão.",
+      "finalidade.",
+      "intensidade.",
+      "oposição."
+    ],
+    [
+      "a possibilidade de animais terem sonhos.",
+      "a quantidade de aranhas analisadas em pesquisas.",
+      "o fio que as aranhas se penduram para dormir.",
+      "o tamanho do cérebro das aranhas."
+    ],
+    [
+      "divertir o leitor.",
+      "fazer uma crítica.",
+      "informar o leitor.",
+      "narrar uma história."
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
+}

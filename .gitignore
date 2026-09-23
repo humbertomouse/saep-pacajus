@@ -1,0 +1,12 @@
+__pycache__/
+_extract/
+_extrair/
+.env
+.env.*
+*.pyc
+deploy/
+_teste-prova.docx
+_build_prova.py
+_extract_docx.py
+_extract_xml.py
+_extrair_consolidado.py
