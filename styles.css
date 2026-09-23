@@ -353,52 +353,46 @@ img.logo-cabecalho-prova {
   border-radius: 14px;
   background: #fff;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.65;
   text-align: justify;
   text-justify: inter-word;
-  hyphens: auto;
-  -webkit-hyphens: auto;
 }
 
 .prova-apoio p {
-  margin: 0 0 14px;
-  text-align: justify !important;
+  margin: 0 0 12px;
+  text-align: justify;
   text-justify: inter-word;
-  hyphens: auto;
-  -webkit-hyphens: auto;
 }
 .prova-apoio p:last-child { margin-bottom: 0; }
-.prova-apoio .rotulo,
-.prova-apoio .titulo-texto,
-.prova-apoio .instrucao {
-  text-align: center !important;
-  text-indent: 0;
-  hyphens: none;
-}
 .prova-apoio .rotulo {
+  text-align: justify;
+  text-indent: 0;
   font-weight: 700;
-  color: var(--brand-dark);
-  margin-top: 14px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  margin-top: 12px;
 }
 .prova-apoio .titulo-texto {
+  text-align: center;
+  text-indent: 0;
   font-weight: 700;
   font-size: 18px;
-  margin-bottom: 14px;
+  margin: 8px 0 14px;
 }
-.prova-apoio .instrucao { font-weight: 650; }
+.prova-apoio .instrucao {
+  text-align: justify;
+  text-indent: 0;
+  font-weight: 650;
+}
 .prova-apoio .fonte {
   font-size: 13px;
   color: var(--muted);
-  text-align: left !important;
+  text-align: right;
   text-indent: 0;
 }
 .prova-apoio .verso,
 .prova-apoio .corpo {
-  text-align: justify !important;
-  text-indent: 1.75em;
-  margin-bottom: 14px;
+  text-align: justify;
+  text-indent: 1.25cm;
+  margin-bottom: 12px;
 }
 
 .prova-apoio img {
@@ -423,13 +417,10 @@ img.logo-cabecalho-prova {
 .questao-prova .enunciado {
   margin: 8px 0 12px;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.6;
   font-weight: 500;
-  text-align: justify !important;
-  text-justify: inter-word;
-  text-indent: 1.5em;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  text-align: justify;
+  text-indent: 0;
 }
 
 .alts-texto {
