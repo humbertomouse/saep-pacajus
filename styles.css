@@ -416,11 +416,9 @@ img.logo-cabecalho-prova {
 
 .questao-prova .enunciado {
   margin: 8px 0 12px;
-  font-size: 16px;
-  line-height: 1.6;
-  font-weight: 500;
-  text-align: justify;
-  text-indent: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 650;
 }
 
 .alts-texto {

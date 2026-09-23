@@ -788,7 +788,7 @@ function renderLancar() {
     const altsTxt = (p.alternativas && p.alternativas[i]) || [];
     const corpo = document.createElement("div");
     corpo.innerHTML = `<div class="num">Questão ${i + 1}</div>`
-      + (enunciado ? quebrarParagrafos(enunciado).map((t) => `<p class="enunciado">${escHtml(t)}</p>`).join("") : "")
+      + (enunciado ? `<p class="enunciado">${escHtml(enunciado)}</p>` : "")
       + (altsTxt.some(Boolean)
         ? `<ol class="alts-texto">${altsTxt.map((t, k) => `<li><strong>${ALTS[k]})</strong> ${escHtml(t)}</li>`).join("")}</ol>`
         : "");
