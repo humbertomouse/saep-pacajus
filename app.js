@@ -96,6 +96,8 @@ function bloquearGabarito(voltarCadastros) {
   document.getElementById("graf-niveis").innerHTML = "";
   document.getElementById("graf-ranking").innerHTML = "";
   document.getElementById("tabela-consolidado").innerHTML = "";
+  document.getElementById("tabela-resultados").innerHTML = "";
+  document.getElementById("resumo-turma").innerHTML = "";
   if (voltarCadastros) abrirAba("cadastros");
 }
 
@@ -897,6 +899,11 @@ function renderResultados() {
   const disciplina = document.getElementById("res-disciplina").value;
   const tbody = document.getElementById("tabela-resultados");
   const resumo = document.getElementById("resumo-turma");
+  if (!professorLiberado()) {
+    tbody.innerHTML = "";
+    resumo.innerHTML = "";
+    return;
+  }
   if (!turmaId) {
     tbody.innerHTML = "";
     resumo.innerHTML = "";
@@ -1301,6 +1308,7 @@ function refresh() {
     renderGabarito();
     renderComparar();
     renderGraficos();
+    renderResultados();
   } else {
     document.getElementById("lista-gabarito").innerHTML = "";
     document.getElementById("lista-comparar").innerHTML = "";
@@ -1308,13 +1316,14 @@ function refresh() {
     document.getElementById("graf-niveis").innerHTML = "";
     document.getElementById("graf-ranking").innerHTML = "";
     document.getElementById("tabela-consolidado").innerHTML = "";
+    document.getElementById("tabela-resultados").innerHTML = "";
+    document.getElementById("resumo-turma").innerHTML = "";
   }
   renderLancar();
-  renderResultados();
 }
 
 function abaRestrita(nome) {
-  return nome === "gabarito" || nome === "comparar" || nome === "graficos";
+  return nome === "gabarito" || nome === "comparar" || nome === "resultados" || nome === "graficos";
 }
 
 document.querySelectorAll(".tab").forEach((tab) => {

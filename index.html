@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=9" />
+    <link rel="stylesheet" href="styles.css?v=10" />
   </head>
   <body>
     <header class="topbar">
@@ -208,6 +208,7 @@
             <button id="btn-imprimir" class="btn ghost btn-imprimir" type="button">Imprimir</button>
             <button id="btn-exportar" class="btn ghost" type="button">Exportar JSON</button>
           </div>
+          <p class="hint">Área restrita do professor. Informe a senha da SME para ver os resultados da turma.</p>
           <div class="niveis-legenda">
             <span class="pill ok">Adequado ≤ 1000</span>
             <span class="pill mid">Intermediário ≤ 850</span>
@@ -306,7 +307,7 @@
     <div class="modal" id="modal-senha" hidden>
       <form id="form-senha" class="card modal-card">
         <h2>Área do professor</h2>
-        <p class="hint">Digite a senha da SME para abrir o gabarito, a comparação ou os gráficos consolidados.</p>
+        <p class="hint">Digite a senha da SME para abrir o gabarito, a comparação, os resultados ou os gráficos consolidados.</p>
         <label>Senha <input id="senha-gabarito" type="password" autocomplete="current-password" required /></label>
         <p class="erro" id="senha-erro" hidden>Senha incorreta.</p>
         <div class="toolbar">
@@ -330,8 +331,8 @@
     <input id="file-prova" type="file" accept=".docx,.txt,.html,.htm,.doc" hidden />
     <p class="toast" id="toast" hidden></p>
     <script src="xlsx.full.min.js"></script>
-    <script src="excel-export.js?v=9"></script>
-    <script src="docx-prova.js?v=9"></script>
-    <script src="app.js?v=9"></script>
+    <script src="excel-export.js?v=10"></script>
+    <script src="docx-prova.js?v=10"></script>
+    <script src="app.js?v=10"></script>
   </body>
 </html>
