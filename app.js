@@ -546,12 +546,34 @@ function escHtml(s) {
   }[c]));
 }
 
+function quebrarParagrafos(texto) {
+  const bruto = String(texto || "").replace(/\r/g, "").trim();
+  if (!bruto) return [];
+  if (/\n/.test(bruto)) return bruto.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+  if (bruto.length < 280) return [bruto];
+  const pedacos = bruto.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕÀÜ"“])/);
+  const out = [];
+  let acc = "";
+  pedacos.forEach((p) => {
+    const next = acc ? `${acc} ${p}` : p;
+    if (acc && next.length > 240) {
+      out.push(acc);
+      acc = p;
+    } else acc = next;
+  });
+  if (acc) out.push(acc);
+  return out.length ? out : [bruto];
+}
+
 function classeParteApoio(texto, anterior) {
-  if (/^Texto\s+\d/i.test(texto)) return "rotulo";
-  if (/^Leia /i.test(texto)) return "instrucao";
-  if (/Disponível em:|Acesso em:|Fragmento/i.test(texto)) return "fonte";
-  if (anterior && /^Texto\s+\d/i.test(anterior) && texto.length < 90) return "titulo-texto";
-  return "";
+  const t = String(texto || "").trim();
+  if (/^Texto\s+\d+\b/i.test(t) || /^(POEMA|TIRINHA|CHARGE)\s*\d*/i.test(t)) return "rotulo";
+  if (/^Leia\b/i.test(t)) return "instrucao";
+  if (/Disponível em:|Acesso em:|Fragmento/i.test(t)) return "fonte";
+  const depoisDeCabeca = /^(Texto\s+\d+|Leia\b|POEMA|TIRINHA|CHARGE)/i.test(String(anterior || "").trim());
+  if (depoisDeCabeca && t.length <= 110 && !/^Quest[aã]o\b/i.test(t)) return "titulo-texto";
+  if (t.length <= 70 && !/[.!?]$/.test(t) && /^(titulo-texto|verso)$/.test(classeParteApoio._prevCls || "")) return "verso";
+  return "corpo";
 }
 
 function htmlApoioPartes(partes, primeiroBloco) {
@@ -560,14 +582,19 @@ function htmlApoioPartes(partes, primeiroBloco) {
     imagens: (parte.imagens || []).filter((src) => !ehImagemLogoCabecalho(src)),
   }));
   let prev = "";
+  classeParteApoio._prevCls = "";
   return lista.map((parte) => {
-    const cls = classeParteApoio(parte.texto || "", prev);
-    if (parte.texto) prev = parte.texto;
-    const p = parte.texto ? `<p class="${cls}">${escHtml(parte.texto)}</p>` : "";
+    const trechos = quebrarParagrafos(parte.texto || "");
+    const blocos = trechos.map((trecho, idx) => {
+      const cls = classeParteApoio(trecho, idx === 0 ? prev : trechos[idx - 1]);
+      classeParteApoio._prevCls = cls;
+      return `<p class="${cls}">${escHtml(trecho)}</p>`;
+    }).join("");
+    if (parte.texto) prev = trechos[trechos.length - 1] || parte.texto;
     const imgs = (parte.imagens || [])
       .filter((src) => !ehImagemLogoCabecalho(src))
       .map((src) => `<img src="${escHtml(src)}" alt="Texto de apoio da prova" />`).join("");
-    return p + imgs;
+    return blocos + imgs;
   }).join("");
 }
 
@@ -762,7 +789,7 @@ function renderLancar() {
     const altsTxt = (p.alternativas && p.alternativas[i]) || [];
     const corpo = document.createElement("div");
     corpo.innerHTML = `<div class="num">Questão ${i + 1}</div>`
-      + (enunciado ? `<p class="enunciado">${escHtml(enunciado)}</p>` : "")
+      + (enunciado ? quebrarParagrafos(enunciado).map((t) => `<p class="enunciado">${escHtml(t)}</p>`).join("") : "")
       + (altsTxt.some(Boolean)
         ? `<ol class="alts-texto">${altsTxt.map((t, k) => `<li><strong>${ALTS[k]})</strong> ${escHtml(t)}</li>`).join("")}</ol>`
         : "");

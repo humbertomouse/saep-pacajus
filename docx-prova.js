@@ -76,10 +76,27 @@
   }
 
   function textOf(el) {
-    const nodes = el.getElementsByTagNameNS(W, "t");
     let out = "";
-    for (let i = 0; i < nodes.length; i += 1) out += nodes[i].textContent || "";
-    return out.replace(/\s+/g, " ").trim();
+    function walk(node) {
+      if (!node) return;
+      if (node.nodeType === 3) {
+        out += node.textContent || "";
+        return;
+      }
+      if (node.nodeType !== 1) return;
+      const local = node.localName;
+      if (local === "br" || local === "cr") {
+        out += "\n";
+        return;
+      }
+      if (local === "tab") {
+        out += " ";
+        return;
+      }
+      for (let i = 0; i < node.childNodes.length; i += 1) walk(node.childNodes[i]);
+    }
+    walk(el);
+    return out.replace(/[ \t]+\n/g, "\n").replace(/\n[ \t]+/g, "\n").replace(/[ \t]{2,}/g, " ").trim();
   }
 
   function blipsOf(el) {
