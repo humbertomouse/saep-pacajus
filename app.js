@@ -110,6 +110,11 @@ function mostrarModalSenha(mostrar) {
 }
 
 function abrirAba(nome) {
+  if (abaRestrita(nome) && !professorLiberado()) {
+    abaPendente = nome;
+    mostrarModalSenha(true);
+    return;
+  }
   document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("is-active", t.dataset.tab === nome));
   document.querySelectorAll(".painel").forEach((p) => p.classList.remove("is-active"));
   document.getElementById("painel-" + nome).classList.add("is-active");
@@ -1330,10 +1335,11 @@ document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => {
     const destino = tab.dataset.tab;
     const atual = document.querySelector(".tab.is-active")?.dataset.tab;
+    if (destino === atual) return;
     if (abaRestrita(atual) && !abaRestrita(destino)) {
       bloquearGabarito(false);
     }
-    if (abaRestrita(destino) && !professorLiberado()) {
+    if (abaRestrita(destino)) {
       abaPendente = destino;
       mostrarModalSenha(true);
       return;
@@ -1884,6 +1890,7 @@ async function importarSemente() {
 }
 
 async function iniciar() {
+  sessionStorage.removeItem(SESSAO_KEY);
   const bruto = localStorage.getItem(KEY);
   if (bruto) {
     try {
