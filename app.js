@@ -134,8 +134,77 @@ function prova(turmaId, disciplina) {
     };
     aplicarCatalogoNaProva(p);
     db.provas.push(p);
+    const turma = db.turmas.find((t) => t.id === turmaId);
+    const ano = turma ? anoChave(turma.ano || turma.nome) : "";
+    if (ano) {
+      const oficial = provaAno(ano, disciplina);
+      if (oficial && (oficial.gabarito || []).some(Boolean)) copiarOficialParaProva(p, oficial);
+    }
   }
   return p;
+}
+
+function turmasDoAno(ano) {
+  return db.turmas.filter((t) => anoChave(t.ano || t.nome) === ano);
+}
+
+function provaAno(ano, disciplina) {
+  if (!ano) return null;
+  let p = db.provas.find((x) => x.anoKey === ano && x.disciplina === disciplina && !x.turmaId);
+  if (!p) {
+    const amostra = turmasDoAno(ano)[0];
+    const base = amostra ? db.provas.find((x) => x.turmaId === amostra.id && x.disciplina === disciplina) : null;
+    p = {
+      anoKey: ano,
+      turmaId: "",
+      disciplina,
+      qtd: (base && base.qtd) || 26,
+      gabarito: ((base && base.gabarito) || Array(26).fill("")).slice(),
+      descritores: ((base && base.descritores) || Array(26).fill("")).slice(),
+      enunciados: ((base && base.enunciados) || []).slice(),
+      alternativas: ((base && base.alternativas) || []).map((a) => (a || []).slice()),
+      apoioBlocos: (base && base.apoioBlocos) ? JSON.parse(JSON.stringify(base.apoioBlocos)) : [],
+      tituloProva: (base && base.tituloProva) || "",
+      subtituloProva: (base && base.subtituloProva) || "",
+      marcas: [],
+      respostas: {},
+    };
+    if (!base) aplicarCatalogoNaProva(p);
+    db.provas.push(p);
+  }
+  return p;
+}
+
+function copiarOficialParaProva(destino, origem) {
+  if (!destino || !origem) return;
+  destino.qtd = origem.qtd;
+  destino.gabarito = (origem.gabarito || []).slice();
+  destino.descritores = (origem.descritores || []).slice();
+  destino.enunciados = (origem.enunciados || []).slice();
+  destino.alternativas = (origem.alternativas || []).map((a) => (a || []).slice());
+  destino.apoioBlocos = origem.apoioBlocos ? JSON.parse(JSON.stringify(origem.apoioBlocos)) : [];
+  destino.tituloProva = origem.tituloProva || "";
+  destino.subtituloProva = origem.subtituloProva || "";
+  destino.documentoImportado = origem.documentoImportado;
+  destino.documentoNome = origem.documentoNome || "";
+  destino.marcas = [];
+  garantirTamanho(destino);
+}
+
+function sincronizarGabaritoAno(ano, disciplina) {
+  const oficial = provaAno(ano, disciplina);
+  if (!oficial) return;
+  turmasDoAno(ano).forEach((t) => {
+    copiarOficialParaProva(prova(t.id, disciplina), oficial);
+  });
+}
+
+function aplicarGabaritoDoAnoNaTurma(p, turmaId, disciplina) {
+  const turma = db.turmas.find((t) => t.id === turmaId);
+  const ano = turma ? anoChave(turma.ano || turma.nome) : "";
+  if (!ano) return;
+  const oficial = db.provas.find((x) => x.anoKey === ano && x.disciplina === disciplina && !x.turmaId);
+  if (oficial) copiarOficialParaProva(p, oficial);
 }
 
 function proficiencia(acertos, qtd) {
@@ -197,7 +266,6 @@ function fillSelect(el, items, getLabel, selected) {
 
 const FILTROS_ESCOLA_TURMA = [
   { escola: "aluno-escola", turma: "aluno-turma" },
-  { escola: "gab-escola", turma: "gab-turma" },
   { escola: "lan-escola", turma: "lan-turma" },
   { escola: "cmp-escola", turma: "cmp-turma" },
   { escola: "res-escola", turma: "res-turma" },
@@ -543,13 +611,13 @@ function renderGabarito() {
     box.innerHTML = "";
     return;
   }
-  const turmaId = document.getElementById("gab-turma").value;
+  const ano = document.getElementById("gab-ano").value;
   const disciplina = document.getElementById("gab-disciplina").value;
-  if (!turmaId) {
-    box.innerHTML = "<p class='hint'>Cadastre uma turma para montar o gabarito.</p>";
+  if (!ano) {
+    box.innerHTML = "<p class='hint'>Selecione o ano para montar o gabarito.</p>";
     return;
   }
-  const p = prova(turmaId, disciplina);
+  const p = provaAno(ano, disciplina);
   garantirTamanho(p);
   document.getElementById("gab-qtd").value = p.qtd;
   box.innerHTML = "";
@@ -567,6 +635,7 @@ function renderGabarito() {
       btn.textContent = letra;
       btn.addEventListener("click", () => {
         p.gabarito[i] = p.gabarito[i] === letra ? "" : letra;
+        sincronizarGabaritoAno(ano, disciplina);
         salvar();
         renderGabarito();
       });
@@ -578,6 +647,7 @@ function renderGabarito() {
     input.value = p.descritores[i] || "";
     input.addEventListener("change", () => {
       p.descritores[i] = input.value.trim();
+      sincronizarGabaritoAno(ano, disciplina);
       salvar();
     });
     art.appendChild(alts);
@@ -590,6 +660,7 @@ function renderGabarito() {
     }
     box.appendChild(art);
   }
+  sincronizarGabaritoAno(ano, disciplina);
   salvar();
 }
 
@@ -641,6 +712,7 @@ function renderLancar() {
     return;
   }
   const p = prova(turmaId, disciplina);
+  aplicarGabaritoDoAnoNaTurma(p, turmaId, disciplina);
   garantirTamanho(p);
   if (!p.respostas[aluno.id]) {
     p.respostas[aluno.id] = { falta: false, finalizado: false, respostas: Array(p.qtd).fill("") };
@@ -752,6 +824,7 @@ function renderComparar() {
   }
 
   const p = prova(turmaId, disciplina);
+  aplicarGabaritoDoAnoNaTurma(p, turmaId, disciplina);
   garantirTamanho(p);
   const lanc = p.respostas[aluno.id] || { falta: false, respostas: Array(p.qtd).fill("") };
   document.getElementById("cmp-titulo").textContent = aluno.nome;
@@ -1408,10 +1481,6 @@ document.getElementById("aluno-escola").addEventListener("change", () => {
   renderListasCadastro();
 });
 document.getElementById("aluno-turma").addEventListener("change", renderListasCadastro);
-document.getElementById("gab-escola").addEventListener("change", () => {
-  turmasOptions();
-  renderGabarito();
-});
 document.getElementById("lan-escola").addEventListener("change", () => {
   alunoAtual = "";
   turmasOptions();
@@ -1427,9 +1496,9 @@ document.getElementById("res-escola").addEventListener("change", () => {
   renderResultados();
 });
 function aplicarQtdDaBarra() {
-  const turmaId = document.getElementById("gab-turma").value;
+  const ano = document.getElementById("gab-ano").value;
   const disciplina = document.getElementById("gab-disciplina").value;
-  const p = prova(turmaId, disciplina);
+  const p = provaAno(ano, disciplina);
   const campo = document.getElementById("gab-qtd");
   if (!p) return false;
   if (!aplicarQuantidadeProva(p, campo.value)) {
@@ -1437,6 +1506,7 @@ function aplicarQtdDaBarra() {
     return false;
   }
   campo.value = p.qtd;
+  sincronizarGabaritoAno(ano, disciplina);
   salvar();
   renderGabarito();
   return true;
@@ -1446,9 +1516,9 @@ document.getElementById("btn-gerar-gab").addEventListener("click", () => {
   if (aplicarQtdDaBarra()) toast("Quantidade atualizada. Os enunciados existentes foram mantidos.");
 });
 document.getElementById("gab-qtd").addEventListener("change", aplicarQtdDaBarra);
-["gab-turma", "gab-disciplina"].forEach((id) => {
+["gab-ano", "gab-disciplina"].forEach((id) => {
   document.getElementById(id).addEventListener("change", () => {
-    const p = prova(document.getElementById("gab-turma").value, document.getElementById("gab-disciplina").value);
+    const p = provaAno(document.getElementById("gab-ano").value, document.getElementById("gab-disciplina").value);
     if (p) document.getElementById("gab-qtd").value = p.qtd;
     renderGabarito();
   });
@@ -1575,9 +1645,13 @@ async function carregarCatalogoProva() {
 
 function provaDaTelaAtiva() {
   const aba = document.querySelector(".tab.is-active")?.dataset.tab;
-  const prefixo = aba === "lancar" ? "lan" : aba === "comparar" ? "cmp" : "gab";
+  const disciplina = document.getElementById((aba === "lancar" ? "lan" : aba === "comparar" ? "cmp" : "gab") + "-disciplina")?.value;
+  if (aba === "gabarito" || !aba) {
+    const ano = document.getElementById("gab-ano")?.value;
+    return ano ? provaAno(ano, disciplina) : null;
+  }
+  const prefixo = aba === "lancar" ? "lan" : "cmp";
   const turmaId = document.getElementById(prefixo + "-turma")?.value;
-  const disciplina = document.getElementById(prefixo + "-disciplina")?.value;
   if (!turmaId) return null;
   return prova(turmaId, disciplina);
 }
@@ -1615,7 +1689,7 @@ function substituirProvaPeloDocumento(p, parsed, nomeArquivo) {
 function abrirSeletorDocumento() {
   const p = provaDaTelaAtiva();
   if (!p) {
-    toast("Selecione uma turma e a disciplina.");
+    toast("Selecione o ano e a disciplina.");
     return;
   }
   document.getElementById("file-prova").value = "";
@@ -1627,12 +1701,13 @@ async function aoArquivoProva(file) {
   if (!window.confirm("Isso substitui os enunciados atuais desta disciplina. Continuar?")) return;
   const p = provaDaTelaAtiva();
   if (!p) {
-    toast("Selecione uma turma e a disciplina.");
+    toast("Selecione o ano e a disciplina.");
     return;
   }
   try {
     const parsed = await parseDocumentoProva(file);
     substituirProvaPeloDocumento(p, parsed, file.name);
+    if (p.anoKey) sincronizarGabaritoAno(p.anoKey, p.disciplina);
     salvar();
     refresh();
     toast(`${parsed.enunciados.length} questões importadas. A prova anterior foi substituída.`);
@@ -1645,7 +1720,7 @@ async function aoArquivoProva(file) {
 function exportarDocumentoProva() {
   const p = provaDaTelaAtiva();
   if (!p) {
-    toast("Selecione uma turma e a disciplina.");
+    toast("Selecione o ano e a disciplina.");
     return;
   }
   garantirTamanho(p);

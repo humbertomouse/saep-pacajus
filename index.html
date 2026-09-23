@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
   <body>
     <header class="topbar">
@@ -95,8 +95,14 @@
       <section id="painel-gabarito" class="painel">
         <article class="card">
           <div class="toolbar">
-            <label>Escola <select id="gab-escola"></select></label>
-            <label>Turma <select id="gab-turma"></select></label>
+            <label>Ano / série
+              <select id="gab-ano">
+                <option value="6º">6º ano</option>
+                <option value="7º">7º ano</option>
+                <option value="8º">8º ano</option>
+                <option value="9º" selected>9º ano</option>
+              </select>
+            </label>
             <label>Disciplina
               <select id="gab-disciplina">
                 <option value="lp">Língua Portuguesa</option>
@@ -109,7 +115,7 @@
             <button id="btn-exportar-prova" class="btn ghost" type="button">Exportar documento</button>
             <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
           </div>
-          <p class="hint">Área restrita do professor. Marque a resposta correta em A, B, C ou D e informe o descritor SPEACE/SAEB. Importar um .docx substitui as questões desta disciplina.</p>
+          <p class="hint">Área restrita do professor. O gabarito é único por ano e disciplina, para todas as escolas. Marque a resposta correta em A, B, C ou D e informe o descritor SPEACE/SAEB. Importar um .docx substitui as questões deste ano.</p>
           <div id="lista-gabarito" class="questoes"></div>
           <div class="toolbar senha-toolbar">
             <label>Nova senha do gabarito <input id="nova-senha" type="password" autocomplete="new-password" /></label>
@@ -324,8 +330,8 @@
     <input id="file-prova" type="file" accept=".docx,.txt,.html,.htm,.doc" hidden />
     <p class="toast" id="toast" hidden></p>
     <script src="xlsx.full.min.js"></script>
-    <script src="excel-export.js?v=6"></script>
-    <script src="docx-prova.js?v=6"></script>
-    <script src="app.js?v=6"></script>
+    <script src="excel-export.js?v=8"></script>
+    <script src="docx-prova.js?v=8"></script>
+    <script src="app.js?v=8"></script>
   </body>
 </html>
