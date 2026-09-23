@@ -572,7 +572,6 @@ function classeParteApoio(texto, anterior) {
   if (/Disponível em:|Acesso em:|Fragmento/i.test(t)) return "fonte";
   const depoisDeCabeca = /^(Texto\s+\d+|Leia\b|POEMA|TIRINHA|CHARGE)/i.test(String(anterior || "").trim());
   if (depoisDeCabeca && t.length <= 110 && !/^Quest[aã]o\b/i.test(t)) return "titulo-texto";
-  if (t.length <= 70 && !/[.!?]$/.test(t) && /^(titulo-texto|verso)$/.test(classeParteApoio._prevCls || "")) return "verso";
   return "corpo";
 }
 
