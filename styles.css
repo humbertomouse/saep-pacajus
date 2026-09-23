@@ -538,6 +538,7 @@ th { color: var(--muted); font-size: 12px; }
 @media print {
   .tabs,
   .toolbar .btn,
+  .btn-reset-avaliacoes,
   .toast,
   .modal,
   .painel:not(.is-active),

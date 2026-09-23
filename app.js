@@ -1838,10 +1838,8 @@ async function iniciar() {
     recuperarConteudoProva(p);
     garantirTamanho(p);
   });
-  if (localStorage.getItem(LIMPAR_PREMARCADOS_KEY) !== "1") {
-    limparRespostasNaoFinalizadas();
-    localStorage.setItem(LIMPAR_PREMARCADOS_KEY, "1");
-  }
+  limparRespostasNaoFinalizadas();
+  localStorage.setItem(LIMPAR_PREMARCADOS_KEY, "1");
   if (db.escolas.length) salvar();
   refresh();
 }

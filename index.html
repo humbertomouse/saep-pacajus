@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <header class="topbar">
@@ -36,6 +36,7 @@
         <button class="tab" data-tab="resultados" type="button">Resultados</button>
         <button class="tab" data-tab="graficos" type="button">Gráficos</button>
       </nav>
+      <button class="btn danger btn-reset-avaliacoes" type="button">Reset das avaliações</button>
     </header>
 
     <main>
@@ -323,8 +324,8 @@
     <input id="file-prova" type="file" accept=".docx,.txt,.html,.htm,.doc" hidden />
     <p class="toast" id="toast" hidden></p>
     <script src="xlsx.full.min.js"></script>
-    <script src="excel-export.js"></script>
-    <script src="docx-prova.js"></script>
-    <script src="app.js"></script>
+    <script src="excel-export.js?v=4"></script>
+    <script src="docx-prova.js?v=4"></script>
+    <script src="app.js?v=4"></script>
   </body>
 </html>
