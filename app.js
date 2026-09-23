@@ -1485,6 +1485,20 @@ document.getElementById("btn-finalizar").addEventListener("click", () => {
   toast("Lançamento finalizado. O aluno saiu da lista de lançamento.");
 });
 
+const LIMPAR_PREMARCADOS_KEY = "saep-limpar-premarcados-v1";
+
+function limparRespostasNaoFinalizadas() {
+  (db.provas || []).forEach((p) => {
+    const qtd = p.qtd || 26;
+    Object.keys(p.respostas || {}).forEach((id) => {
+      const lanc = p.respostas[id];
+      if (!lanc || lanc.finalizado) return;
+      lanc.respostas = Array(qtd).fill("");
+      lanc.falta = false;
+    });
+  });
+}
+
 function reiniciarAvaliacoes() {
   (db.provas || []).forEach((p) => {
     p.respostas = {};
@@ -1495,8 +1509,8 @@ function reiniciarAvaliacoes() {
   refresh();
 }
 
-document.getElementById("btn-reiniciar-avaliacoes").addEventListener("click", () => {
-  mostrarModalAdmin(true);
+document.querySelectorAll(".btn-reset-avaliacoes").forEach((el) => {
+  el.addEventListener("click", () => mostrarModalAdmin(true));
 });
 
 document.getElementById("btn-cancelar-admin").addEventListener("click", () => mostrarModalAdmin(false));
@@ -1777,8 +1791,8 @@ async function importarSemente() {
   };
   seed.alunos.forEach((a, i) => {
     const aluno = db.alunos[i];
-    lp.respostas[aluno.id] = { falta: !!a.faltaLp, respostas: a.lp || [] };
-    mat.respostas[aluno.id] = { falta: !!a.faltaMat, respostas: a.mat || [] };
+    lp.respostas[aluno.id] = { falta: false, finalizado: false, respostas: Array(lp.qtd).fill("") };
+    mat.respostas[aluno.id] = { falta: false, finalizado: false, respostas: Array(mat.qtd).fill("") };
   });
   db.provas = [lp, mat];
   salvar();
@@ -1824,6 +1838,10 @@ async function iniciar() {
     recuperarConteudoProva(p);
     garantirTamanho(p);
   });
+  if (localStorage.getItem(LIMPAR_PREMARCADOS_KEY) !== "1") {
+    limparRespostasNaoFinalizadas();
+    localStorage.setItem(LIMPAR_PREMARCADOS_KEY, "1");
+  }
   if (db.escolas.length) salvar();
   refresh();
 }

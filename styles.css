@@ -156,6 +156,13 @@ h2 { font-size: 18px; margin-bottom: 12px; }
 
 .cadastros-acoes { margin-bottom: 14px; }
 
+.btn.danger {
+  border: 1px solid var(--bad);
+  background: #fff5f4;
+  color: var(--bad);
+  font-weight: 700;
+}
+
 .split-3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

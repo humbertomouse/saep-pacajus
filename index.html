@@ -44,10 +44,10 @@
           <div class="toolbar">
             <button id="btn-importar-cadastros" class="btn primary" type="button">Importar cadastros SAEP</button>
             <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
-            <button id="btn-reiniciar-avaliacoes" class="btn ghost" type="button">Limpar lançamentos das provas</button>
+            <button class="btn danger btn-reset-avaliacoes" type="button">Reset das avaliações</button>
           </div>
           <p class="hint">Os formulários manuais de escola, turma e aluno continuam disponíveis. A importação mescla a rede FUND II sem duplicar cadastros nem apagar provas ou respostas já lançadas.</p>
-          <p class="hint">Limpar lançamentos (administração) apaga só as respostas, faltas e finalizações dos alunos. Gabarito, enunciados, escolas, turmas e alunos permanecem.</p>
+          <p class="hint">O botão vermelho <strong>Reset das avaliações</strong> (senha de administrador SMEFUND2) apaga só as respostas lançadas. Gabarito, enunciados, escolas, turmas e alunos permanecem.</p>
         </article>
         <div class="split-3">
           <article class="card">
@@ -134,6 +134,7 @@
               <button id="btn-importar-prova-lan" class="btn ghost" type="button">Importar documento</button>
               <button id="btn-exportar-prova-lan" class="btn ghost" type="button">Exportar documento</button>
               <button class="btn ghost btn-imprimir" type="button">Imprimir</button>
+              <button class="btn danger btn-reset-avaliacoes" type="button">Reset das avaliações</button>
             </div>
             <ul id="lista-alunos-lancar" class="lista alunos-side"></ul>
           </article>
